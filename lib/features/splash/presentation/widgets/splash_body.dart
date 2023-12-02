@@ -1,13 +1,17 @@
 import 'package:flutter/cupertino.dart';
+import 'package:fruitsmarket/core/utils/size_config.dart';
+import 'package:fruitsmarket/features/onboarding/presentation/on_boarding_view.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
-class SplashBody extends StatefulWidget {
-  const SplashBody({super.key});
+class SplashViewBody extends StatefulWidget {
+  const SplashViewBody({super.key});
 
   @override
-  State<SplashBody> createState() => _SplashBodyState();
+  State<SplashViewBody> createState() => _SplashViewBodyState();
 }
 
-class _SplashBodyState extends State<SplashBody> with SingleTickerProviderStateMixin {
+class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProviderStateMixin {
 
   AnimationController? animationController;
   Animation<double>? fadingAnimation;
@@ -18,10 +22,13 @@ class _SplashBodyState extends State<SplashBody> with SingleTickerProviderStateM
     animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
     fadingAnimation = Tween<double>(begin: .2, end: 1).animate(animationController!);
     animationController?.repeat(reverse: true);
+
+    goToNextView();
   }
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -31,7 +38,6 @@ class _SplashBodyState extends State<SplashBody> with SingleTickerProviderStateM
           child: const Text(
             'Fruits Market',
             style: TextStyle(
-                fontFamily: 'Poppins',
                 fontSize: 51,
                 fontWeight: FontWeight.bold,
                 color: Color(0xffffffff)
@@ -47,5 +53,11 @@ class _SplashBodyState extends State<SplashBody> with SingleTickerProviderStateM
   void dispose() {
     super.dispose();
     animationController?.dispose();
+  }
+
+  void goToNextView() {
+    Future.delayed(const Duration(seconds: 3), () {
+      Get.to(() => const OnBoardingView(), transition: Transition.fade);
+    });
   }
 }
