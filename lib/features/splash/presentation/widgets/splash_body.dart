@@ -14,6 +14,7 @@ class _SplashBodyState extends State<SplashBody> with SingleTickerProviderStateM
 
   @override
   void initState() {
+    super.initState();
     animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
     fadingAnimation = Tween<double>(begin: .2, end: 1).animate(animationController!);
     animationController?.repeat(reverse: true);
@@ -44,6 +45,7 @@ class _SplashBodyState extends State<SplashBody> with SingleTickerProviderStateM
 
   @override
   void dispose() {
+    super.dispose();
     animationController?.dispose();
   }
 }
